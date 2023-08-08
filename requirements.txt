@@ -1,3 +1,6 @@
 scipy
 transformers
 joblib
+scikit-learn
+tensorflow
+torch
