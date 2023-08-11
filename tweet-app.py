@@ -39,6 +39,9 @@ st.info("""This app predicts the **Retweet Probability** of your twitter post!
 Some training data  was obtained from the 
 [HuggingFace library](https://huggingface.co/datasets/mesolitica/snapshot-twitter-2022-09-03/tree/main).
 You can either enter features as input from the sidebar or upload a csv file containing rows of features with a header.
+
+[Sample CSV Input File](https://github.com/RazPyGeek/Twittalytics-Data/blob/main/app-test-data.csv)
+
 """, icon= None)
 
 
@@ -66,12 +69,18 @@ else:
 		Tweet_Text = st.sidebar.text_input(label='**Enter Tweet:**', placeholder='Life of Brian #DataScience',max_chars=120)
 		Veri = st.sidebar.radio('**Account Verification Status:**',('Yes','No'), horizontal= True)
 		Account_Age = st.sidebar.slider('**Age Of Twitter Account (Years):**',1,17,3)
-		Followers_Count = st.sidebar.slider('**Number Of Followers:**',0,108900197,100)
-		Favorite_Count = st.sidebar.slider('**No. Times Tweet Marked As Favorite:**',0,2399697,100)
-		Status_Count = st.sidebar.slider('**No. Tweets Posted By Account:**',1,2567806,100)
-		Listed_Count = st.sidebar.slider('**No. Twitter List You Belong To:**',0,133955,100)
-		Favourites_Count = st.sidebar.slider('**No. Tweets Marked As Favorite:**',0,1770752,100)
-		Friends_Count = st.sidebar.slider('**No. Of Accounts Followed:**',0,892016,100)
+		Followers_Count = st.sidebar.number_input('**Number Of Followers:**',min_value = 0, max_value = 108900197, value = 100, 
+			help = 'Enter any number between 0 and 108900197', step = 500)
+		Favorite_Count = st.sidebar.number_input('**Tweet Favorite Count:**',min_value = 0, max_value = 2399697, value = 100, 
+			help = 'Enter any number between 0 and 2399697', step = 500)
+		Favourites_Count = st.sidebar.number_input('**No. Tweets Marked As Favorite:**',min_value = 0, max_value = 1770752, value = 100, 
+			help = 'Enter any number between 0 and 1770752', step = 500)
+		Status_Count = st.sidebar.number_input('**No. Tweets Posted By Account:**',min_value = 1, max_value = 2567806, value = 100, 
+			help = 'Enter any number between 0 and 2567806', step = 500)
+		Listed_Count = st.sidebar.number_input('**No. Twitter List You Belong To:**',min_value = 0, max_value = 133955, value = 100, 
+			help = 'Enter any number between 0 and 133955', step = 500)
+		Friends_Count = st.sidebar.number_input('**No. Of Accounts Followed:**',min_value = 0, max_value = 892016, value = 100, 
+			help = 'Enter any number between 0 and 892016', step = 500)
 		Has_Media = st.sidebar.radio('**Will There Be Media Within The Tweet?**',('Yes','No'), horizontal= True)
 		Hashtags = st.sidebar.radio('**Does The Post Contain Has Tags?**',('Yes','No'), horizontal= True)
 
@@ -147,6 +156,73 @@ if st.button('**Predict**', type = "primary",):
 		retweet_class = np.array(['Class 0: 0 Retweets','Class 1: 1 to 100 Retweets', 'Class 2: 101 to 300 Retweets',
 									'Class 3: 301 to 1000 Retweets', 'Class 4: 1001+ Retweets'])
 		st.write(retweet_class[prediction])
+		with st.expander("Tips & Recommendations"):
+			if prediction == 'Class 0':
+				st.write("""
+			    * Engage more with your followers to increase your tweet visibility.
+				* Include relevant hashtags to expand the reach of your tweet.
+				* Consider adding images or videos to your tweets to make them more engaging.
+				* Aim for a moderate number of favorites and status counts to maintain a balanced engagement.
+
+				**These tips are not absolute. Customize your strategies based on your target audience, 
+				industry trends, and the evolving nature of social media.**
+			""")
+			elif prediction == 'Class 1':
+				st.write("""
+			    * **Verification or Quality:** Verification adds credibility; if not, focus on producing high-quality content.
+				* **Followers Count:** Aim for a Followers Count up to 78,064,408 to expand your reach.
+				* **Favorite Counts:** Share content with Favorite Counts up to 10,673 to encourage engagement.
+				* **Status Count:** Maintain an active presence with a Status Count up to 2,113,577.
+				* **Listed Count:** Incorporate hashtags and trends to build a Listed Count up to 133,955.
+				* **Media:** Incorporate images or videos in your tweets for higher engagement.
+				* **Favourites Count:** Aim for a Favourites Count up to 1,770,752 to showcase your interests.
+				* **Friends Count:** Keep your Friends Count balanced up to 598,203 for optimal interactions.
+
+				**These tips are not absolute. Customize your strategies based on your target audience, 
+				industry trends, and the evolving nature of social media.**
+			""")
+			elif prediction == 'Class 2':
+				st.write("""
+				* **Followers Count:** Aim for a Followers Count up to 108,900,197 for broader reach.
+				* **Favorite Counts:** Share tweets with Favorite Counts up to 21,060 for better engagement.
+				* **Status Count:** Maintain an active presence with a Status Count up to 1,253,906.
+				* **Listed Count:** Incorporate relevant hashtags to build a Listed Count up to 133,940.
+				* **Media:** Include images or videos in your tweets for higher engagement.
+				* **Favourites Count:** Aim for a Favourites Count up to 1,423,877 to showcase your interests.
+				* **Friends Count:** Keep your Friends Count balanced up to 892,016 for optimal interactions.
+
+				**These tips are not absolute. Customize your strategies based on your target audience, 
+				industry trends, and the evolving nature of social media.**
+			""")
+			elif prediction == 'Class 3':
+				st.write("""
+				* **Hashtags:** Use trending hashtags to increase tweet visibility.
+				* **Followers Count:** Aim for a Followers Count up to 108,900,155 for broader reach.
+				* **Favorite Counts:** Share content with Favorite Counts up to 35,949 for better engagement.
+				* **Status Count:** Maintain an active presence with a Status Count up to 1,436,687.
+				* **Listed Count:** Including hashtags can build a Listed Count up to 128,199 for better visibility.
+				* **Media:** Incorporate relevant images or videos to enhance engagement.
+				* **Favourites Count:** Aim for a Favourites Count up to 787,634 to showcase your interests.
+				* **Friends Count:** Keep your Friends Count balanced up to 891,835 for optimal interactions.
+
+				**These tips are not absolute. Customize your strategies based on your target audience, 
+				industry trends, and the evolving nature of social media.**
+			""")
+			else:
+				st.write("""
+			    * **Compelling Content:** Focus on creating compelling and shareable content to encourage retweets.
+				* **Trending Hashtags:** Utilize popular and trending hashtags to increase visibility.
+				* **Followers Count:** Aim for a Followers Count up to 108,898,870 for broader reach.
+				* **Favorite Counts:** Share content with Favorite Counts up to 2,399,697 for better engagement.
+				* **Status Count:** Maintain an active presence with a Status Count up to 1,346,173.
+				* **Listed Count:** Including relevant hashtags can build a Listed Count up to 128,201 for better visibility.
+				* **Media:** Incorporate images or videos to enhance the visual appeal of your tweets.
+				* **Favourites Count:** Aim for a Favourites Count up to 900,465 to showcase your interests.
+				* **Friends Count:** Keep your Friends Count balanced up to 891,971 for optimal interactions.
+
+				**These tips are not absolute. Customize your strategies based on your target audience, 
+				industry trends, and the evolving nature of social media.**
+			""")
 
 	with tab2:
 		st.subheader('Prediction Probability')
