@@ -6,6 +6,8 @@ Hashbang above allows this script to run on any operating system.
 '''
 
 from scipy.special import softmax
+import sklearn
+import torch
 import streamlit as st, pandas as pd, joblib, numpy as np
 from transformers import AutoTokenizer,AutoConfig
 from transformers import AutoModelForSequenceClassification
@@ -14,7 +16,7 @@ from transformers import TFAutoModelForSequenceClassification
 
 # Reads in saved classification model
 
-load_rf = joblib.load(f"https://github.com/RazPyGeek/twittalytics/blob/main/best_model/rf_model.joblib")
+load_rf = joblib.load(f"best_model/rf_model.joblib")
 
 # Custom Functions
 #st.sidebar.header('Input Features')
