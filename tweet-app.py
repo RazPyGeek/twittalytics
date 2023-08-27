@@ -16,7 +16,7 @@ from transformers import TFAutoModelForSequenceClassification
 
 # Reads in saved classification model
 
-load_rf = joblib.load(f"best_model/rf_model.joblib")
+load_rf = joblib.load(f"https://drive.google.com/drive/folders/1S66Ji1rlJV84UaNSCqTgkoRd3BUaegJp?usp=sharing")
 
 # Custom Functions
 #st.sidebar.header('Input Features')
