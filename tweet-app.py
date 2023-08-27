@@ -42,7 +42,7 @@ Some training data  was obtained from the
 [HuggingFace library](https://huggingface.co/datasets/mesolitica/snapshot-twitter-2022-09-03/tree/main).
 You can either enter features as input from the sidebar or upload a csv file containing rows of features with a header.
 
-[Sample CSV Input File](https://github.com/RazPyGeek/Twittalytics-Data/blob/main/app-test-data.csv)
+[Click Here To Download Sample Input CSV File](https://github.com/RazPyGeek/Twittalytics-Data/blob/main/app-test-data.csv)
 
 """, icon= None)
 
@@ -151,14 +151,14 @@ if st.button('**Predict**', type = "primary",):
 	prediction_proba = load_rf.predict_proba(input_df )
 
 
-	tab1, tab2,  = st.tabs(["Prediction", "Prediction Probability"])
+	tab1, tab2,  = st.tabs(["Prediction", "Prediction Probability By Class"])
 
 	with tab1:
 		st.subheader('Prediction')
 		retweet_class = np.array(['Class 0: 0 Retweets','Class 1: 1 to 100 Retweets', 'Class 2: 101 to 300 Retweets',
 									'Class 3: 301 to 1000 Retweets', 'Class 4: 1001+ Retweets'])
 		st.write(retweet_class[prediction])
-		with st.expander("Tips & Recommendations"):
+		with st.expander("Tips & Recommendations For Increasing Retweet Count Within A Predicted Class"):
 			if prediction == 'Class 0':
 				st.write("""
 			    * Engage more with your followers to increase your tweet visibility.
@@ -227,7 +227,7 @@ if st.button('**Predict**', type = "primary",):
 			""")
 
 	with tab2:
-		st.subheader('Prediction Probability')
+		st.subheader('Prediction Probability By Class')
 		st.write(prediction_proba)
 		with st.expander("See explanation"):
 			st.write("""
