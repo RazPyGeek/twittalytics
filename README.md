@@ -32,7 +32,7 @@ pip install requirements.txt
 3. Run the Streamlit server🚀
 
 ```bash
-streamlit tweet-app.py
+streamlit run tweet-app.py
 ```
 
 ## 🚀 Upcoming Features
