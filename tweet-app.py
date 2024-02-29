@@ -25,9 +25,8 @@ load_rf = load_model()
 @st.cache_resource
 def roberta_model():
 	roberta_model = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
-	tokenizer = AutoTokenizer.from_pretrained(roberta_model)
-	config = AutoConfig.from_pretrained(roberta_model)
 	return roberta_model
+	
 roBerta_model = roberta_model()
 
 # Custom Functions
@@ -104,6 +103,8 @@ else:
 
 		'''Converting Tweet Column To sentiment polarity using
 		the latest RoBERTa model'''
+		tokenizer = AutoTokenizer.from_pretrained(roBerta_model)
+		config = AutoConfig.from_pretrained(roBerta_model)
 
 		# PT
 		model = AutoModelForSequenceClassification.from_pretrained(roBerta_model)
