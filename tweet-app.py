@@ -14,16 +14,25 @@ from transformers import AutoModelForSequenceClassification
 from transformers import TFAutoModelForSequenceClassification
 
 
-# Reads in saved classification model
+# Load personal pre-trained model and cache
+@st.cache
+def load_model():
+	  return joblib.load(f"best_model/rf_model.joblib")
+	
+load_rf = load_model()
 
-load_rf = joblib.load(f"best_model/rf_model.joblib")
+#Load roberta trained model for real-time prediction
+@st.cache
+def roberta_model():
+	roberta_model = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
+	tokenizer = AutoTokenizer.from_pretrained(roberta_model)
+	config = AutoConfig.from_pretrained(roberta_model)
+	return roberta_model
+roBerta_model = roberta_model()
 
 # Custom Functions
 #st.sidebar.header('Input Features')
-convert = {'Yes':1,
-			'No':0
-	
-}
+convert = {'Yes':1,'No':0}
 
 # Preprocess text (username and link placeholders)
 def preprocess(text):
@@ -96,12 +105,8 @@ else:
 		'''Converting Tweet Column To sentiment polarity using
 		the latest RoBERTa model'''
 
-		roberta_model = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
-		tokenizer = AutoTokenizer.from_pretrained(roberta_model)
-		config = AutoConfig.from_pretrained(roberta_model)
-
 		# PT
-		model = AutoModelForSequenceClassification.from_pretrained(roberta_model)
+		model = AutoModelForSequenceClassification.from_pretrained(roBerta_model)
 
 		text = Tweet_Text
 		text = preprocess(text)
