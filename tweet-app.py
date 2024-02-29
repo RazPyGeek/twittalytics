@@ -15,14 +15,14 @@ from transformers import TFAutoModelForSequenceClassification
 
 
 # Load personal pre-trained model and cache
-@st.cache
+@st.cache_resource
 def load_model():
 	  return joblib.load(f"best_model/rf_model.joblib")
 	
 load_rf = load_model()
 
 #Load roberta trained model for real-time prediction
-@st.cache
+@st.cache_resource
 def roberta_model():
 	roberta_model = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
 	tokenizer = AutoTokenizer.from_pretrained(roberta_model)
